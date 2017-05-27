@@ -23,10 +23,13 @@ function AddSearchByMyIdButton(_searchForm,_nickName)
   var boardName = document.getElementById('r_board_id').value;
   var x = document.createElement("input");
 
+  x.setAttribute("id","searchByNickName");
   x.setAttribute("type","button");
   x.setAttribute("value","내 닉네임으로 검색");
+
   _searchForm[0].appendChild(x);
 
+  
 }
 
 function PrintMyNickNameAtMain(_mainLeft,_nickName)
