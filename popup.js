@@ -2,6 +2,7 @@
 //Copyright By G(powe0101@naver.com)
 //최초 작성일 : 2017-05-27
 
+//익스텐션 진입점.
 main();
 
 function main()
