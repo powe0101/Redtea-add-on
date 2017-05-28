@@ -12,7 +12,9 @@
     "activeTab",
     "http://redtea.kr/"
   ],
-  "content_scripts": [{"matches": ["http://redtea.kr/*"],
-                    "js": ["popup.js"]}
-                    ]
+  "content_scripts":
+  [{
+                    "matches": ["http://redtea.kr/*"],
+                    "js": ["popup.js"]
+  }]
 }
