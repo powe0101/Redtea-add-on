@@ -73,11 +73,19 @@ function AddSearchByMyIdButton(_searchForm,_nickName)
   mainLeft 지역 닉네임 표시 기능 ( 디버깅용 )
   실제 코드 상 문법 단위 문제가 있을 경우 이 기능이 동작하지 않음
 */
+
 function PrintMyNickNameAtMain(_mainLeft,_nickName)
 {
   var x = document.createElement("div");
   x.className = "myId";
   x.innerText = "내 닉네임 : " + _nickName;
+  _mainLeft[0].appendChild(x);
+
+  x = document.createElement("input");
+  x.setAttribute("id","searchMyArticle");
+  x.setAttribute("type","button");
+  x.setAttribute("value","내가 쓴 글 찾기");
+  x.setAttribute("onclick","var nameList = document.getElementsByClassName('tl-name');for(var i = 0; i < nameList.length;++i){var x = nameList[i].children[0];if(x.innerText == '"+_nickName+"'"+"){x.scrollIntoView();        break;}}return false;");
 
   _mainLeft[0].appendChild(x);
 }
