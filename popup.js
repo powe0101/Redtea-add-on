@@ -2,10 +2,11 @@
 //Copyright By G(powe0101@naver.com)
 //최초 작성일 : 2017-05-27
 
-//익스텐션 진입점.
-main();
+
+main();//익스텐션 진입점.
 
 /*
+  익스텐션 진입점
   searchForm : @d2 - 검색창의 폼 섹션 요소
   myNickName : $r_reporter - 닉네임 input
   mainLeft : @logged - 로그인 폼 요소
@@ -24,7 +25,6 @@ function main()
     PrintMyNickNameAtMain(mainLeft,myNickName);
     HighlightMyNickName(myNickName);
   }
-
 }
 
 /*
@@ -75,6 +75,8 @@ function AddSearchByMyIdButton(_searchForm,_nickName)
   mainLeft 지역 닉네임 표시 기능 ( 디버깅용 )
   실제 코드 상 문법 단위 문제가 있을 경우 이 기능이 동작하지 않음
   이후 리모컨 기능으로 대체 예정
+
+  x : 내 닉네임 표시  div
 */
 
 function PrintMyNickNameAtMain(_mainLeft,_nickName)
@@ -100,6 +102,8 @@ function PrintMyNickNameAtMain(_mainLeft,_nickName)
 /*
   글 작성시 나가지는걸 방지
   ( 개발중 )
+  memo : 게시판형 텍스트박스 감지
+  timeline_memo : 타임라인형 텍스트 박스
 */
 function AlertDoingWrite()
 {
