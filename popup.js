@@ -22,15 +22,17 @@ function main()
   if(myNickName)
   {
     PrintMyNickNameAtMain(mainLeft,myNickName);
-    highlightMyNickName(myNickName);
+    HighlightMyNickName(myNickName);
   }
+
 }
 
 /*
+  타임라인 로그인 된 닉네임 하이라이트 표시
   nameList : @tl-name - 타임라인형 게시판 닉네임 태그
   x : #span - 닉네임 태그의 첫번째 자식 태그, innerText == 작성자 닉네임
 */
-function highlightMyNickName(_nickName)
+function HighlightMyNickName(_nickName)
 {
   var nameList = document.getElementsByClassName("tl-name");
 
@@ -72,20 +74,38 @@ function AddSearchByMyIdButton(_searchForm,_nickName)
 /*
   mainLeft 지역 닉네임 표시 기능 ( 디버깅용 )
   실제 코드 상 문법 단위 문제가 있을 경우 이 기능이 동작하지 않음
+  이후 리모컨 기능으로 대체 예정
 */
 
 function PrintMyNickNameAtMain(_mainLeft,_nickName)
 {
   var x = document.createElement("div");
-  x.className = "myId";
+  x.id = "myId";
   x.innerText = "내 닉네임 : " + _nickName;
-  _mainLeft[0].appendChild(x);
 
-  x = document.createElement("input");
-  x.setAttribute("id","searchMyArticle");
-  x.setAttribute("type","button");
-  x.setAttribute("value","내가 쓴 글 찾기");
-  x.setAttribute("onclick","var nameList = document.getElementsByClassName('tl-name');for(var i = 0; i < nameList.length;++i){var x = nameList[i].children[0];if(x.innerText == '"+_nickName+"'"+"){x.scrollIntoView();        break;}}return false;");
 
+/*
+  var searchMyArticle = document.createElement("input");
+  searchMyArticle.setAttribute("id","searchMyArticle");
+  searchMyArticle.setAttribute("type","button");
+  searchMyArticle.setAttribute("value","내가 쓴 글 찾기");
+  searchMyArticle.setAttribute("onclick","var nameList = document.getElementsByClassName('tl-name');for(var i = 0; i < nameList.length;++i){var x = nameList[i].children[0];if(x.innerText == '"+_nickName+"'"+"){x.scrollIntoView();        break;}}return false;");
+
+  x.appendChild(searchMyArticle);
   _mainLeft[0].appendChild(x);
+*/
+
+}
+
+/*
+  글 작성시 나가지는걸 방지
+  ( 개발중 )
+*/
+function AlertDoingWrite()
+{
+  var memo = document.getElementById("memo") //게시판형 텍스트 박스
+  var timeline_memo = document.getElementById("heightChecker"); //타임라인형 텍스트 박스
+  //if(document.getElementById('write').memo.value || timeline_memo.innerText)
+  //  if(confirm("작성 중인 글이 있습니다!") == true)
+  //    document.form.submit();
 }
