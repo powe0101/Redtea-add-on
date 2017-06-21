@@ -3,7 +3,18 @@
 //최초 작성일 : 2017-05-27
 
 
+document.addEventListener('DOMContentLoaded', function () {
+  if (!Notification) {
+    alert('Desktop notifications not available in your browser. Try Chromium.');
+    return;
+  }
+
+  if (Notification.permission !== "granted")
+    Notification.requestPermission();
+});
+
 main();//익스텐션 진입점.
+
 
 /*
   익스텐션 진입점
@@ -17,6 +28,8 @@ function main()
   var myNickName = document.getElementById('r_reporter').value;
   var mainLeft = document.getElementsByClassName('logged');
 
+
+
   if(searchForm[0] && myNickName && searchForm)
     AddSearchByMyIdButton(searchForm,myNickName);
 
@@ -25,7 +38,10 @@ function main()
     PrintMyNickNameAtMain(mainLeft,myNickName);
     HighlightMyNickName(myNickName);
   }
+
+
 }
+
 
 /*
   타임라인 로그인 된 닉네임 하이라이트 표시
@@ -84,19 +100,6 @@ function PrintMyNickNameAtMain(_mainLeft,_nickName)
   var x = document.createElement("div");
   x.id = "myId";
   x.innerText = "내 닉네임 : " + _nickName;
-
-
-/*
-  var searchMyArticle = document.createElement("input");
-  searchMyArticle.setAttribute("id","searchMyArticle");
-  searchMyArticle.setAttribute("type","button");
-  searchMyArticle.setAttribute("value","내가 쓴 글 찾기");
-  searchMyArticle.setAttribute("onclick","var nameList = document.getElementsByClassName('tl-name');for(var i = 0; i < nameList.length;++i){var x = nameList[i].children[0];if(x.innerText == '"+_nickName+"'"+"){x.scrollIntoView();        break;}}return false;");
-
-  x.appendChild(searchMyArticle);
-  _mainLeft[0].appendChild(x);
-*/
-
 }
 
 /*
@@ -107,8 +110,6 @@ function PrintMyNickNameAtMain(_mainLeft,_nickName)
 */
 function AlertDoingWrite()
 {
-  var memo = document.getElementById("memo") //게시판형 텍스트 박스
-  var timeline_memo = document.getElementById("heightChecker"); //타임라인형 텍스트 박스
   //if(document.getElementById('write').memo.value || timeline_memo.innerText)
   //  if(confirm("작성 중인 글이 있습니다!") == true)
   //    document.form.submit();

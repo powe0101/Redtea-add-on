@@ -3,15 +3,23 @@
 
   "name": "홍차넷 기능 확장 프로그램",
   "description": "홍차넷 사용 편의를 위한 확장 기능들을 추가 합니다.",
-  "version": "0.1",
+  "version": "0.2",
 
   "browser_action": {
     "default_icon": "icon.png"
   },
+  "background": {
+    "persistent": false,
+    "scripts": ["background.js","jquery-3.2.1.js","notification.js"]
+  },
   "permissions": [
     "activeTab",
     "tabs",
+    "notifications",
     "http://redtea.kr/"
+  ],
+  "web_accessible_resources": [
+    "icon.png"
   ],
   "content_scripts":
   [{
