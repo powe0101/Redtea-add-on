@@ -2,17 +2,6 @@
 //Copyright By G(powe0101@naver.com)
 //최초 작성일 : 2017-05-27
 
-
-document.addEventListener('DOMContentLoaded', function () {
-  if (!Notification) {
-    alert('Desktop notifications not available in your browser. Try Chromium.');
-    return;
-  }
-
-  if (Notification.permission !== "granted")
-    Notification.requestPermission();
-});
-
 main();//익스텐션 진입점.
 
 
@@ -21,14 +10,15 @@ main();//익스텐션 진입점.
   searchForm : @d2 - 검색창의 폼 섹션 요소
   myNickName : $r_reporter - 닉네임 input
   mainLeft : @logged - 로그인 폼 요소
+
 */
+
+
 function main()
 {
   var searchForm = document.getElementsByClassName('d2');
   var myNickName = document.getElementById('r_reporter').value;
   var mainLeft = document.getElementsByClassName('logged');
-
-
 
   if(searchForm[0] && myNickName && searchForm)
     AddSearchByMyIdButton(searchForm,myNickName);
@@ -38,8 +28,16 @@ function main()
     PrintMyNickNameAtMain(mainLeft,myNickName);
     HighlightMyNickName(myNickName);
   }
+  $(document).ready(function() {
+    setInterval(notifyMe, notification_interval);
+  });
 
+  AlertDoingWrite();
+}
 
+function pad(n, width) {
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
 }
 
 
@@ -88,29 +86,60 @@ function AddSearchByMyIdButton(_searchForm,_nickName)
 }
 
 /*
-  mainLeft 지역 닉네임 표시 기능 ( 디버깅용 )
   실제 코드 상 문법 단위 문제가 있을 경우 이 기능이 동작하지 않음
   이후 리모컨 기능으로 대체 예정
 
-  x : 내 닉네임 표시  div
+  //확장 프로그램 동작 여부 확인
 */
 
 function PrintMyNickNameAtMain(_mainLeft,_nickName)
 {
   var x = document.createElement("div");
   x.id = "myId";
-  x.innerText = "내 닉네임 : " + _nickName;
+  x.innerText = "홍차넷 확장\n 프로그램 동작중";
+
+  _mainLeft[0].appendChild(x);
 }
 
 /*
   글 작성시 나가지는걸 방지
   ( 개발중 )
-  memo : 게시판형 텍스트박스 감지
-  timeline_memo : 타임라인형 텍스트 박스
+  #memo : 게시판형 본문 텍스트박스 감지
+  #writeSubject : 게시판형 제목 텍스트박스 감지
+  #tl-textarea : 타임라인형 텍스트 박스
+  windows.onbeforeunload : askConfirm 이벤트 등록
 */
 function AlertDoingWrite()
 {
-  //if(document.getElementById('write').memo.value || timeline_memo.innerText)
-  //  if(confirm("작성 중인 글이 있습니다!") == true)
-  //    document.form.submit();
+  $("#tl-textarea").change(function(){
+    isChange = true;
+  })
+
+  $("#memo").change(function(){
+    isChange = true;
+  })
+
+  $("writeSubject").change(function(){
+    isChange = true;
+  })
+
+  window.onbeforeunload = askConfirm;
+}
+
+function askConfirm()
+{
+  if (isChange) {
+        //TODO 문자열이 바뀌지 않는 문제가 있음.
+        return "Your unsaved data will be lost.";
+  }
+}
+
+function todayNewUser(_mainLeft)
+{
+  var date = new Date();
+  var today = date.getFullYear().toString().substr(2,2)+"/"+pad(date.getMonth()+1,2)+"/"+pad(date.getDate(),2);
+
+  var isUnread = $().load('http://redtea.kr/pb/pb.php?id=greeting');
+
+  alert (table.length);
 }
