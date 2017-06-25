@@ -8,34 +8,62 @@
   logo_img_url : 확장 프로그램 내 이미지
   notification : 알림 표시 객체 // defricated on August, In that case i had to change this instance.
 */
-var notification_interval = 60000;
+var notification_interval = 60000; //60초
+var isShowContent = true;
+var logo_img_url = chrome.runtime.getURL("icon.png");
 
-function notifyMe(_mainLeft) {
-
+function deleteNotifyDiv()
+{
   var parse = document.getElementById("parseNotice");
   if(parse)
     parse.remove();
+}
 
+function makeNotifyDiv()
+{
   var x = document.createElement("div");
   x.setAttribute("type","hidden");
   x.setAttribute("id","parseNotice");
   x.setAttribute("style","visibility:hidden;");
-  document.getElementsByClassName('logged')[0].appendChild(x);
+  document.getElementsByClassName('slogan')[0].appendChild(x);
+}
 
-  //var isUnread = $("#parseNotice").load('http://redtea.kr/pb/member_notice.php .unread .ellipsis').text();
-  
-  var logo_img_url = chrome.runtime.getURL("icon.png");
-
+function notificationing(title,message)
+{
   if (Notification.permission !== "granted")
     Notification.requestPermission();
-  else if(document.getElementsByClassName("ellipsis")) {
-    var notification = new Notification('알림', {
+  else
+  {
+    var notification = new Notification(title, {
       icon: logo_img_url,
-      body: "잠깐만요. 알림이 들어왔어요!"
+      body: message
     });
 
     notification.onclick = function () {
       window.open("http://redtea.kr/pb/member_notice.php");
     };
   }
+}
+
+function notifyMe(_mainLeft)
+{
+
+  deleteNotifyDiv();
+  makeNotifyDiv();
+
+  $("#parseNotice").load('http://redtea.kr/pb/member_notice.php .unread .ellipsis',function(responseTxt, statusTxt, xhr){
+        if(statusTxt == "success"){
+            if(document.getElementById("parseNotice").hasChildNodes()){
+              notificationing('알림',"잠깐만요. 알림이 들어왔어요!");
+            }
+            else {
+              //alert("읽지 않음 알림 없음");
+            }
+          }
+        if(statusTxt == "error")
+            alert("Error: " + xhr.status + ": " + xhr.statusText);
+  });
+
+  //notificationing('알림',"잠깐만요. 알림이 들어왔어요!")
+  //member_notice 의 읽지 않은 알림 가져오기
 }
