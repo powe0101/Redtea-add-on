@@ -10,7 +10,7 @@
   },
   "background": {
     "persistent": false,
-    "scripts": ["background.js"]
+    "scripts": ["script/background.js"]
   },
   "permissions": [
     "activeTab",
@@ -24,6 +24,6 @@
   "content_scripts":
   [{
                     "matches": ["http://redtea.kr/*"],
-                    "js": ["popup.js","notification.js"]
+                    "js": ["script/popup.js","script/notification.js"]
   }]
 }

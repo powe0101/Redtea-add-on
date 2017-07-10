@@ -4,7 +4,6 @@
 
 main();//익스텐션 진입점.
 
-
 /*
   익스텐션 진입점
   searchForm : @d2 - 검색창의 폼 섹션 요소
@@ -12,8 +11,6 @@ main();//익스텐션 진입점.
   mainLeft : @logged - 로그인 폼 요소
 
 */
-
-
 function main()
 {
   var searchForm = document.getElementsByClassName('d2');
