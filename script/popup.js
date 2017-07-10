@@ -1,4 +1,3 @@
-
 //Copyright By G(powe0101@naver.com)
 //최초 작성일 : 2017-05-27
 
@@ -9,7 +8,6 @@ main();//익스텐션 진입점.
   searchForm : @d2 - 검색창의 폼 섹션 요소
   myNickName : $r_reporter - 닉네임 input
   mainLeft : @logged - 로그인 폼 요소
-
 */
 function main()
 {
@@ -100,7 +98,6 @@ function PrintMyNickNameAtMain(_mainLeft,_nickName)
 
 /*
   글 작성시 나가지는걸 방지
-  ( 개발중 )
   #memo : 게시판형 본문 텍스트박스 감지
   #writeSubject : 게시판형 제목 텍스트박스 감지
   #tl-textarea : 타임라인형 텍스트 박스
@@ -131,6 +128,9 @@ function askConfirm()
   }
 }
 
+/*
+  개발중 오늘의 새 회원 알림
+*/
 function todayNewUser(_mainLeft)
 {
   var date = new Date();
