@@ -16,7 +16,7 @@ function main()
   var mainLeft = document.getElementsByClassName('logged');
 
   if(searchForm[0] && myNickName && searchForm)
-    AddSearchByMyIdButton(searchForm,myNickName);
+    AddSearchByMyIdButton(searchForm,mainLeft,myNickName);
 
   if(myNickName)
   {
@@ -50,7 +50,7 @@ function HighlightMyNickName(_nickName)
     var x = nameList[i].children[0];
 
     if(x.innerText == _nickName)
-      x.setAttribute("style","cursor:pointer;background-color:#A3CCA3;");
+      x.setAttribute("style","cursor:pointer;color:#FF001E;background-color:#FFF000;");
   }
 }
 
@@ -60,7 +60,7 @@ function HighlightMyNickName(_nickName)
   boardName : $r_board_id - 현재 엑티브된 게시판 정보
   x : @searchByNickName - 닉네임으로 검색 할 수 있는 버튼 추가
 */
-function AddSearchByMyIdButton(_searchForm,_nickName)
+function AddSearchByMyIdButton(_searchForm,_mainLeft,_nickName)
 {
   var boardName = document.getElementById('r_board_id').value;
 
@@ -78,6 +78,16 @@ function AddSearchByMyIdButton(_searchForm,_nickName)
   x.setAttribute("onclick","document.getElementsByClassName('searchKeyword')[0].value = r_reporter.value;this.form.submit();return false;");
 
   _searchForm[0].appendChild(x);
+
+
+  var x = document.createElement("input");
+  x.setAttribute("id","searchByNickNameLeft");
+  x.setAttribute("type","button");
+  x.setAttribute("value","내 닉네임으로 검색");
+  x.setAttribute("onclick","document.getElementById('searchByNickName').click();return false;");
+
+  _mainLeft[0].appendChild(x);
+
 }
 
 /*
@@ -113,7 +123,7 @@ function AlertDoingWrite()
     isChange = true;
   })
 
-  $("writeSubject").change(function(){
+  $("#writeSubject").change(function(){
     isChange = true;
   })
 
@@ -124,6 +134,8 @@ function askConfirm()
 {
   if (isChange) {
         //TODO 문자열이 바뀌지 않는 문제가 있음.
+        alert($("#textNums").text().length);
+
         return "Your unsaved data will be lost.";
   }
 }
