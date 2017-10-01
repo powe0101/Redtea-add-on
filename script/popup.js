@@ -1,4 +1,4 @@
-//Copyright By G(powe0101@naver.com)
+//Copyright By G(gongji007@gmail.com)
 //최초 작성일 : 2017-05-27
 
 main();//익스텐션 진입점.
@@ -28,8 +28,24 @@ function main()
   });
 
   AlertDoingWrite();
+  AutoOpenMore();
 }
 
+/*
+  타임라인 더보기 버튼 자동 클릭
+  moreList : @tl-name - 타임라인형 더보기 태그
+  x : #span - 더보기 태그의 첫번째 자식 태그
+*/
+function AutoOpenMore()
+{
+  var moreList = document.getElementsByClassName("show-more");
+
+  for(var i = 0; i < moreList.length; ++i)
+  {
+    var x = moreList[i];
+    x.click();
+  }
+}
 function pad(n, width) {
   n = n + '';
   return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
@@ -124,6 +140,14 @@ function AlertDoingWrite()
   })
 
   $("#writeSubject").change(function(){
+    isChange = true;
+  })
+
+  $(".voyarea2").change(function(){
+    isChange = true;
+  })
+
+  $("#voyarea2").change(function(){
     isChange = true;
   })
 
