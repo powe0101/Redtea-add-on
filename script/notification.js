@@ -49,7 +49,7 @@ function notifyMe(_mainLeft)
   deleteNotifyDiv();
   makeNotifyDiv();
 
-  $("#parseNotice").load('http://redtea.kr/pb/member_notice.php .unread .ellipsis',function(responseTxt, statusTxt, xhr){
+  $("#parseNotice").load('http://redtea.kr/pb/member_notice.php .unread',function(responseTxt, statusTxt, xhr){
         if(statusTxt == "success"){
             if(document.getElementById("parseNotice").hasChildNodes()){
               notificationing('알림',"잠깐만요. 알림을 확인해 주세요!");
