@@ -22,13 +22,68 @@ function main()
   {
     PrintMyNickNameAtMain(mainLeft,myNickName);
     HighlightMyNickName(myNickName);
+    AutoOpenMore();
+    AlertDoingWrite();
   }
+
+  articleAreaFontSetting();
+
   $(document).ready(function() {
     setInterval(notifyMe, notification_interval);
   });
 
-  AlertDoingWrite();
-  AutoOpenMore();
+  chrome.storage.sync.get({
+    isBlossom: true
+  }, function(items) {
+    if(items.isBlossom == false)
+    var blossomStopButton = document.getElementById("stopBlossom");
+    blossomStopButton.click();
+  });
+
+}
+
+/*
+  티타임용 글씨 확대 축소 기능
+  moreList : @tl-name - 타임라인형 더보기 태그
+  x : #span - 더보기 태그의 첫번째 자식 태그
+*/
+function articleAreaFontSetting()
+{
+  var articleTopArea = document.getElementsByClassName("topbtns");
+
+  if(articleTopArea.length > 0)
+    appendBoardFontButtons(articleTopArea);
+
+}
+
+function appendBoardFontButtons(_articleArea)
+{
+  var x = document.createElement("input");
+  x.setAttribute("id","fontSizeUp");
+  x.setAttribute("type","button");
+  x.setAttribute("value","+");
+  x.setAttribute("onclick","");
+
+  _articleArea[0].appendChild(x);
+
+  var x = document.createElement("input");
+  x.setAttribute("id","fontSizeDown");
+  x.setAttribute("type","button");
+  x.setAttribute("value","-");
+  x.setAttribute("onclick","");
+
+  _articleArea[0].appendChild(x);
+
+  $("#fontSizeUp").click(function() {
+    $('.articleArea').css("font-size", function() {
+             return parseInt($(this).css('font-size')) + 1 + 'px';
+         });
+ });
+ $("#fontSizeDown").click(function() {
+   $('.articleArea').css("font-size", function() {
+            return parseInt($(this).css('font-size')) - 1 + 'px';
+        });
+});
 }
 
 /*
@@ -91,18 +146,25 @@ function AddSearchByMyIdButton(_searchForm,_mainLeft,_nickName)
   x.setAttribute("id","searchByNickName");
   x.setAttribute("type","button");
   x.setAttribute("value","내 닉네임으로 검색");
-  x.setAttribute("onclick","document.getElementsByClassName('searchKeyword')[0].value = r_reporter.value;this.form.submit();return false;");
+  x.setAttribute("onclick","location.href='pb.php?id="+boardName+"&sn1=on&sn=on&ss=off&sc=off&keyword="+_nickName+"';");
 
   _searchForm[0].appendChild(x);
 
+  var articleTopArea = document.getElementById('articleTop');
 
   var x = document.createElement("input");
   x.setAttribute("id","searchByNickNameLeft");
   x.setAttribute("type","button");
   x.setAttribute("value","내 닉네임으로 검색");
-  x.setAttribute("onclick","document.getElementById('searchByNickName').click();return false;");
+  x.setAttribute("onclick","location.href='pb.php?id="+boardName+"&sn1=on&sn=on&ss=off&sc=off&keyword="+_nickName+"';");
 
-  _mainLeft[0].appendChild(x);
+  articleTopArea.appendChild(x);
+
+  var x = document.createElement("input");
+  x.setAttribute("id","searchByNickNameLeft");
+  x.setAttribute("type","button");
+  x.setAttribute("value","내 닉네임으로 검색");
+  x.setAttribute("onclick","location.href='pb.php?id="+boardName+"&sn1=on&sn=on&ss=off&sc=off&keyword="+_nickName+"';");
 
 }
 
@@ -117,7 +179,16 @@ function PrintMyNickNameAtMain(_mainLeft,_nickName)
 {
   var x = document.createElement("div");
   x.id = "myId";
-  x.innerText = "홍차넷 확장\n 프로그램 동작중";
+  x.innerText = "홍차넷 확장 프로그램 동작중";
+
+  _mainLeft[0].appendChild(x);
+
+  var x = document.createElement("input");
+  x.setAttribute("id","stopBlossom");
+  x.setAttribute("type","button");
+  x.setAttribute("style","display:none");
+  x.setAttribute("value","정지");
+  x.setAttribute("onclick","javascript:$('body').sakura('stop');");
 
   _mainLeft[0].appendChild(x);
 }
@@ -163,16 +234,17 @@ function askConfirm()
         return "Your unsaved data will be lost.";
   }
 }
-
-/*
-  개발중 오늘의 새 회원 알림
-*/
-function todayNewUser(_mainLeft)
-{
-  var date = new Date();
-  var today = date.getFullYear().toString().substr(2,2)+"/"+pad(date.getMonth()+1,2)+"/"+pad(date.getDate(),2);
-
-  var isUnread = $().load('http://redtea.kr/pb/pb.php?id=greeting');
-
-  alert (table.length);
-}
+function saveChanges() {
+       // Get a value saved in a form.
+       var theValue = textarea.value;
+       // Check that there's some code there.
+       if (!theValue) {
+         message('Error: No value specified');
+         return;
+       }
+       // Save it using the Chrome extension storage API.
+       chrome.storage.sync.set({'tl-keyword': theValue}, function() {
+         // Notify that we saved.
+         message('Settings saved');
+       });
+     }
