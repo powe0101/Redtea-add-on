@@ -135,6 +135,9 @@ function AddSearchByMyIdButton(_searchForm,_mainLeft,_nickName)
 {
   var boardName = document.getElementById('r_board_id').value;
 
+
+    var customStyle =
+        "display: inline-block;min - width: 60px;height: 24px;line - height: 24px;margin: 0;padding: 0 12px;color: #FFF!important;font - size: 12px;text - shadow: none;text - align: center;    background: #2f96b4; border: 1px solid #f5f5f5;border - radius: 2px; margin - bottom: 10px;";
   var sn = document.createElement("input");
   sn.setAttribute("type","hidden");
   sn.setAttribute("name","sn");
@@ -146,8 +149,8 @@ function AddSearchByMyIdButton(_searchForm,_mainLeft,_nickName)
   x.setAttribute("id","searchByNickName");
   x.setAttribute("type","button");
   x.setAttribute("value","내 닉네임으로 검색");
-  x.setAttribute("onclick","location.href='pb.php?id="+boardName+"&sn1=on&sn=on&ss=off&sc=off&keyword="+_nickName+"';");
-
+  x.setAttribute("onclick", "location.href='pb.php?id=" + boardName + "&sn1=on&sn=on&ss=off&sc=off&keyword=" + _nickName + "';");
+  x.setAttribute("style", customStyle);
   _searchForm[0].appendChild(x);
 
   var articleTopArea = document.getElementById('articleTop');
@@ -157,6 +160,7 @@ function AddSearchByMyIdButton(_searchForm,_mainLeft,_nickName)
   x.setAttribute("type","button");
   x.setAttribute("value","내 닉네임으로 검색");
   x.setAttribute("onclick","location.href='pb.php?id="+boardName+"&sn1=on&sn=on&ss=off&sc=off&keyword="+_nickName+"';");
+    x.setAttribute("style", customStyle);
 
   articleTopArea.appendChild(x);
 
@@ -165,6 +169,7 @@ function AddSearchByMyIdButton(_searchForm,_mainLeft,_nickName)
   x.setAttribute("type","button");
   x.setAttribute("value","내 닉네임으로 검색");
   x.setAttribute("onclick","location.href='pb.php?id="+boardName+"&sn1=on&sn=on&ss=off&sc=off&keyword="+_nickName+"';");
+    x.setAttribute("style", customStyle);
 
 }
 
